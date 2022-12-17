@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,700,800');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    clip: rect(0 0 0 0);
+  }
+}
+
+@layer components {
+  .badge {
+    position: absolute;
+    background: green;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    padding: 3px;
+    right: -4px;
+    top: 0;
+    font-size: x-small;
+    color: white;
+    line-height: 12px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .card {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-right: 18px;
+    padding: 30px 20px;
+    width: 240px;
+    height: 360px;
+    box-shadow: 0 5px 25px rgba(34, 60, 47, 0.15);
+    border-radius: 6px;
+    background-color: #ffffff;
+
+    @media(min-width: 1201px){
+      &:nth-child(4n+0){
+        margin-right: 0px;
+      }
+    }
+
+    @media(min-width: 941px) and (max-width: 1200px){
+      &:nth-child(3n+0){
+        margin-right: 0px;
+      }
+    }
+
+    @media(min-width: 541px) and (max-width: 940px){
+      &:nth-child(2n+0){
+        margin-right: 0px;
+      }
+    }
+
+    @media(max-width: 540px){
+      margin-right: 0px;
+    }
+  }
+}
+
+body {
+  font-family: "Montserrat";
+}
