@@ -1,0 +1,4 @@
+export const DEFAULT_QUANTITY_VALUE = 1
+export const PRODUCT_EXISTS = 1
+export const PRODUCT_NOT_EXISTS = 0
+export const NOTIFICATION_TIMEOUT = 3000
