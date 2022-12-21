@@ -14,42 +14,44 @@
               <div class="mt-3">
                 <div v-if="cartItems && cartItems.length">
                   <h3 class="text-lg tablet:text-xl font-medium px-4 mb-2 relative">Cart ({{ getTotalCartQuantity }})</h3>
-                  <div v-for="(item, key) in cartItems" :key="'item'+key" class="w-full border-t border-purple-100 p-4">
-                    <div class="w-full h-20 tablet:h-32 flex">
-                      <div class="flex-none w-12 tablet:w-20 flex items-center justify-center">
-                        <img :src="item.image" alt="" class="max-h-full">
+                  <TransitionGroup name="list">
+                    <div v-for="item in cartItems" :key="'item'+item.id" class="w-full border-t border-purple-100 p-4">
+                      <div class="w-full h-20 tablet:h-32 flex">
+                        <div class="flex-none w-12 tablet:w-20 flex items-center justify-center">
+                          <img :src="item.image" alt="" class="max-h-full">
+                        </div>
+                        <div class="flex-auto px-4">
+                          <p class="w-full tablet:font-medium truncate-line-clamp">
+                            {{ item.title }}
+                          </p>
+                        </div>
+                        <div class="font-medium text-lg">${{ item.price }}</div>
                       </div>
-                      <div class="flex-auto px-4">
-                        <p class="w-full tablet:font-medium truncate-line-clamp">
-                          {{ item.title }}
-                        </p>
+                      <div class="mt-2 flex justify-between">
+                        <div>
+                          <button class="border-none hover:bg-purple-100 rounded-md px-2 py-1 text-purple-400 font-semibold text-sm flex leading-5" @click="removeItemFromCart(item)">
+                            <svg width="18" height="18" fill="currentColor">
+                              <use href="#icon-shopping-bag"></use>
+                            </svg>
+                            <span>&nbsp;REMOVE</span>
+                          </button>
+                        </div>
+                        <div class="flex">
+                          <button class="bg-purple-500 text-white text-center rounded-md shadow-md p-1" @click="decreaseQty(item)">
+                            <svg width="18" height="18" fill="currentColor">
+                              <use href="#icon-minus"></use>
+                            </svg>
+                          </button>
+                          <span class="inline-block w-8 text-center leading-7">{{ item.quantity }}</span>
+                          <button class="bg-purple-500 text-white text-center rounded-md shadow-md p-1" @click="increaseQty(item)">
+                            <svg width="18" height="18" fill="currentColor">
+                              <use href="#icon-plus"></use>
+                            </svg>
+                          </button>
+                        </div>
                       </div>
-                      <div class="font-medium text-lg">${{ item.price }}</div>
                     </div>
-                    <div class="mt-2 flex justify-between">
-                      <div>
-                        <button class="border-none hover:bg-purple-100 rounded-md px-2 py-1 text-purple-400 font-semibold text-sm flex leading-5" @click="removeFromCart(item)">
-                          <svg width="18" height="18" fill="currentColor">
-                            <use href="#icon-shopping-bag"></use>
-                          </svg>
-                          <span>&nbsp;REMOVE</span>
-                        </button>
-                      </div>
-                      <div class="flex">
-                        <button class="bg-purple-400 text-white text-center rounded-md shadow-md p-1" @click="decreaseQty(item)">
-                          <svg width="18" height="18" fill="currentColor">
-                            <use href="#icon-minus"></use>
-                          </svg>
-                        </button>
-                        <span class="inline-block w-8 text-center leading-7">{{ item.quantity }}</span>
-                        <button class="bg-purple-400 text-white text-center rounded-md shadow-md p-1" @click="increaseQty(item)">
-                          <svg width="18" height="18" fill="currentColor">
-                            <use href="#icon-plus"></use>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  </TransitionGroup>
                   <div class="mt-5 p-4 border-t border-purple-100">
                     <div class="flex justify-between text-xl font-medium">
                       <span class="">Subtotal</span>
@@ -82,6 +84,7 @@
 <script>
 import { mapState, mapActions } from 'pinia'
 import { useProductStore } from "../stores/products"
+import { useNotificationStore } from "../stores/notification"
 
 export default {
   computed: {
@@ -101,6 +104,11 @@ export default {
     ...mapActions(useProductStore, 
       ['closeCart', 'increaseQty', 'decreaseQty', 'removeFromCart']
     ),
+    ...mapActions(useNotificationStore, ['parseNotification']),
+    removeItemFromCart(item) {
+      this.removeFromCart(item)
+      this.parseNotification('Product removed from cart!')
+    }
   }
 }
 </script>
@@ -118,5 +126,19 @@ export default {
     0% {transform: translateX(100%); }
     65% {transform: translateX(0); box-shadow: 0 0 0px rgba(34, 60, 47, 0.15); }
     100% {box-shadow: 0 0 35px rgba(34, 60, 47, 0.15); }
+  }
+
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+  }
+  .list-enter-from,
+  .list-leave-to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  .list-leave-active {
+    position: absolute;
   }
 </style>

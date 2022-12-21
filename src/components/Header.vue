@@ -11,7 +11,7 @@ import SearchField from './SearchField.vue'
       </div>
       <div class="flex gap-4">
         <div class="hidden tablet:block">
-          <SearchField />
+          <SearchField v-model="searchText" />
         </div>
         <div class="flex items-center relative">
           <a role="button" class="leading-9" @click="openCart()">
@@ -31,9 +31,19 @@ import { useNotificationStore } from "../stores/notification";
 import { useProductStore } from "../stores/products";
 
 export default {
+  data() {
+    return {
+      searchText: "",
+    }
+  },
+  watch: {
+    searchText: function () {
+      this.getSearchProducts(this.searchText);
+    },
+  },
   methods: {
     ...mapActions(useNotificationStore, ['parseNotification']),
-    ...mapActions(useProductStore, ['openCart']),
+    ...mapActions(useProductStore, ['openCart', 'getSearchProducts']),
   },
   computed: {
     ...mapState(useProductStore, ['carts']),

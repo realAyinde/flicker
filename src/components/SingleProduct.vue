@@ -7,7 +7,7 @@
             <use href="#icon-close"></use>
           </svg>
         </div>
-        <div class="relative flex flex-col tablet:flex-row">
+        <div class="relative flex flex-col items-center tablet:flex-row">
           <div class="h-full w-full tablet:w-5/12">
             <div class="w-full pr-4 flex items-center justify-center place-content-center">
               <img :src="product.image" alt="" class="object-contain h-52 w-96">
@@ -31,7 +31,7 @@
             <p class="mt-3 text-sm">{{product.description}}</p>
             <div class="buttons mt-3 flex justify-between">
               <div class="flex">
-                <button class="bg-purple-400 text-white text-center rounded-md shadow-md p-2" @click="decreaseQty()">
+                <button class="bg-purple-500 text-white text-center rounded-md shadow-md p-2" @click="decreaseQty()">
                   <svg width="18" height="18" fill="currentColor">
                     <use href="#icon-minus"></use>
                   </svg>
@@ -39,14 +39,14 @@
                 <span class="inline-block w-10 leading-8 text-center">
                   {{ quantity }}
                 </span>
-                <button class="bg-purple-400 text-white text-center rounded-md shadow-md p-2" @click="increaseQty()">
+                <button class="bg-purple-500 text-white text-center rounded-md shadow-md p-2" @click="increaseQty()">
                   <svg width="18" height="18" fill="currentColor">
                     <use href="#icon-plus"></use>
                   </svg>
                 </button>
               </div>
               <div>
-                <button class="bg-purple-400 text-white text-center text-sm rounded-md shadow-md py-2 px-4" @click="addItemToCart()">Add to Cart</button>
+                <button class="bg-purple-500 text-white text-center text-sm rounded-md shadow-md py-2 px-4" @click="addItemToCart()">Add to Cart</button>
               </div>
             </div>
           </div>
@@ -86,10 +86,10 @@ export default {
       this.close()
       switch (exists) {
         case PRODUCT_EXISTS:
-          this.parseNotification('Product already exists inside the cart.')
+          this.parseNotification('Product already exists inside the cart!')
           break;
         case PRODUCT_NOT_EXISTS:
-          this.parseNotification('Product added to cart.')
+          this.parseNotification('Product added to cart!')
           break;
         default:
           this.parseNotification('Sorry, an error occurs from our side while adding your product to the cart, we are currently working on it, Kindly try again.')

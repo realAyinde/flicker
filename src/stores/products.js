@@ -5,6 +5,7 @@ import { PRODUCT_EXISTS, PRODUCT_NOT_EXISTS } from '../constants'
 export const useProductStore = defineStore('products', {
   state: () => ({
     products: [],
+    filteredProducts: [],
     cartState: false,
     carts: [],
     singleProductState: false,
@@ -14,7 +15,7 @@ export const useProductStore = defineStore('products', {
     async fetchProducts() {
       try {
         const data = await axios.get('https://fakestoreapi.com/products')
-          this.products = this.addPercentageIncrease(data.data) 
+        this.filteredProducts = this.products = this.addPercentageIncrease(data.data) 
         }
         catch (error) {
           console.log(error)
@@ -63,7 +64,24 @@ export const useProductStore = defineStore('products', {
       this.singleProductState = true
     },
     closeProduct() {
+      this.currentProduct = null
       this.singleProductState = false
-    }
+    },
+    getSearchProducts(searchText) {
+      if (searchText) {
+        var newfilterProduct = [];
+        this.products.forEach((item) => {
+          var title = item.title.toLowerCase();
+          var category = item.category.toLowerCase();
+          if (title.search(searchText.toLowerCase()) > -1
+            || category.search(searchText.toLowerCase()) > -1) {
+            newfilterProduct.push(item);
+          }
+        });
+        this.filteredProducts = newfilterProduct;
+        return
+      }
+      this.filteredProducts = this.products;
+    },
   },
 })

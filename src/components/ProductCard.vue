@@ -26,7 +26,7 @@
         <span class="text-sm">$</span>
         <span class="font-semibold text-lg">{{ item.price }}</span>
       </div>
-      <button class="leading-9 border border-purple-300 text-purple-400 hover:bg-purple-300 hover:text-white rounded-full p-[0.4em]" @click.stop="addItemToCart()">
+      <button class="leading-9 border border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white rounded-full p-[0.4em]" @click.stop="addItemToCart()">
         <svg width="14" height="14" fill="currentColor">
           <use href="#icon-shopping_basket"></use>
         </svg>
@@ -54,10 +54,10 @@ export default {
       const exists = this.addToCart(this.item, 1)
       switch (exists) {
         case PRODUCT_EXISTS:
-          this.parseNotification('Product already exists inside the cart.')
+          this.parseNotification('Product already exists inside the cart!')
           break;
         case PRODUCT_NOT_EXISTS:
-          this.parseNotification('Product added to cart.')
+          this.parseNotification('Product added to cart!')
           break;
         default:
           this.parseNotification('Sorry, an error occurs from our side while adding your product to the cart, we are currently working on it, Kindly try again.')
