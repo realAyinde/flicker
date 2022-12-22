@@ -1,5 +1,7 @@
 # Flicker
 
+link to live site: (https://iflicker.netlify.app/)
+
 This is an assessment task to design a Single page E-commerce application in Vue3 using tailwindcss based on the following criteria:
 
 1. Get all products from (https://fakestoreapi.com/products) using Axios.
@@ -16,9 +18,7 @@ This is an assessment task to design a Single page E-commerce application in Vue
 
   - If the product already exists inside the cart, display a prompt to the user: Product already exists inside the cart.
 
-  - If any error occurred while adding a product to the cart, display a prompt to the user:
-
-  Sorry, an error occurs from our side while adding your product to the cart, we are currently working on it, Kindly try again.
+  - If any error occurred while adding a product to the cart, display a prompt to the user: Sorry, an error occurs from our side while adding your product to the cart, we are currently working on it, Kindly try again.
 
 
 

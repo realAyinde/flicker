@@ -6,6 +6,16 @@
       :key="'product'+key"
       :item="product"
     />
+    <div v-if="showResultNotFound" class="mt-6 w-full">
+      <div class="text-center w-full">
+        <p class="text-xl text-purple-500">
+          There are no results for your search!
+        </p>
+        <p class="mt-2">
+          Check your spelling for typing errors or try searching more general terms.
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -34,11 +44,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(useProductStore, ['products', 'filteredProducts'])
-    // ...mapState(useProductStore, { products: 'filteredProducts' })
+    ...mapState(useProductStore, ['products', 'filteredProducts']),
+    showResultNotFound() {
+      return this.products && !this.filteredProducts.length
+    }
   },
   created: function () {
     this.fetchProductsList()
-  },
+  }
 }
 </script>
